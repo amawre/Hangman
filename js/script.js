@@ -36,3 +36,39 @@ function createPH() {
         startBtn.removeEventListener("click", createPH);
     })
 }
+
+// ===== Adds eventlistener to letterBtn. When clicked on it calls the function compmare =====
+letterBtn.addEventListener("click", compare);
+
+/* ===== Function wich first checks if clicked element is a button. Then it listens to the click if you click a button
+         in wordArray*/
+function compare(e) {
+    if (e.target.nodeName == ("BUTTON")) {
+        if(wordArray.includes(e.target.textContent)) {
+            for(let i = 0; i < wordArray.length; i++) {
+                if(wordArray[i] === e.target.textContent) {
+                    currentWord.children[i].innerHTML = e.target.textContent;
+                    rightGuesses++;
+
+                    if(rightGuesses === wordArray.length) {
+                        message.innerHTML = "The force is strong with you!"
+                        startBtn();
+                    }
+                }
+            }
+        } else {
+            wrongGuesses++;
+            hangmanImg.src = `images/hm${wrongGuesses}.png`;
+
+            if(wrongGuesses === 5) {
+                message.innerHTML = "If you get one more wrong, you loose";
+            }
+
+            if(wrongGuesses === 6) {
+                message.innerHTML = "Sorry, you lost!"
+                startBtn();
+            }
+        }
+        e.target.disabled = true;
+    }
+}
