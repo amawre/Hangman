@@ -1,8 +1,8 @@
 // ===== Global variabel with an array including all the words for the game =====
 const words = ["STORMTROOPER", "JEDI", "YODA", "DROID", "LIGHTSABER", "SANPEOPLE", 
-"DEATH STAR", "PADME", "CHEWBACCA", "WOOKIEE", "OBI-WAN KENOBI", "JAWA", "JAR JAR BINKS", "MILLENIUM FALCON",
-"HAN SOLO", "ANAKIN SKYWALKER", "LUKE SKYWALKER", "DARTH VADER", "DARTH MAUL", "THE FORCE", "THE DARK SIDE",
-"PRINCESS LEIA"];
+"DEATH STAR", "PADME", "CHEWBACCA", "WOOKIEE", "OBI-WAN KENOBI", "JAWA", "JAR JAR BINKS",
+"HAN SOLO", "ANAKIN SKYWALKER", "LUKE SKYWALKER", "DARTH VADER", "DARTH MAUL", "THE FORCE",
+"LEIA"];
 let wordArray;
 
 // ===== Global variabels that's conected to different elements in index.html by classes =====
@@ -65,11 +65,11 @@ function compare(e) {
             hangmanImg.src = `images/hm${wrongGuesses}.png`;
 
             if(wrongGuesses === 5) {
-                message.innerHTML = "If you get one more wrong, you loose";
+                message.innerHTML = "One more wrong and you're done...";
             }
 
             if(wrongGuesses === 6) {
-                message.innerHTML = "Sorry, you lost!"
+                message.innerHTML = "Jabba the Hutt will be so pleased with his new pet, YOU!";
                 startOverBtn();
             }
         }
