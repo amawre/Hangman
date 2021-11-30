@@ -49,14 +49,18 @@ function compare(e) {
                 if(wordArray[i] === e.target.textContent) {
                     currentWord.children[i].innerHTML = e.target.textContent;
                     rightGuesses++;
-
+                     /* ===== When the rightGuesses is equal to the length of the word you win and get a message. And 
+                              the startOverBtn function is called =====*/
                     if(rightGuesses === wordArray.length) {
                         message.innerHTML = "The force is strong with you!"
-                        startBtn();
+                        startOverBtn();
                     }
                 }
             }
-        } else {
+            /* ===== Every time wrongGuesses increases the png changes with it. For exempel when wrongGuesses has
+                     increased by 2 the img hm2 will show. Differnt messages when wrongGuesses reaches 5 or 6 nad then
+                     starOvertBtn is called ===== */
+        } else { 
             wrongGuesses++;
             hangmanImg.src = `images/hm${wrongGuesses}.png`;
 
@@ -66,9 +70,33 @@ function compare(e) {
 
             if(wrongGuesses === 6) {
                 message.innerHTML = "Sorry, you lost!"
-                startBtn();
+                startOverBtn();
             }
         }
+        // ===== Disables buttons after beeing clicked =====
         e.target.disabled = true;
     }
+}
+
+// ===== Function that changes the text in the startBtn and adds an eventlistener and calls function starOverF =====
+function startOverBtn() {
+    startBtn.textContent = "Start over";
+    startBtn.addEventListener("click", startOverF);
+}
+
+/* ===== Function that resets the game. Change the button text back to "Start Game", empties the word container, 
+         resets the counters and image, enables buttons ===== */
+function startOverF() {
+    startBtn.textContent = "Start Game";
+    randomWord();
+    startBtn.addEventListener("click", createPH);
+    currentWord.innerHTML = "";
+    rightGuesses = 0;
+    wrongGuesses = 0;
+    hangmanImg.src = "images/hm0.png";
+    message.innerHTML = "";
+    const enableBtns = document.getElementsByTagName("button");
+        for (let i = 0; i < enableBtns.length; i++) {
+            enableBtns[i].disabled = false;
+        }
 }
