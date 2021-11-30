@@ -1,5 +1,5 @@
 // ===== Global variabel with an array including all the words for the game =====
-const words = ["STORMTROOPER", "JEDI", "YODA", "DROID", "LIGHTSABER", "SANPEOPLE", 
+const words = ["STORMTROOPER", "JEDI", "YODA", "DROID", "LIGHTSABER", "SANDPEOPLE", 
 "DEATH STAR", "PADME", "CHEWBACCA", "WOOKIEE", "OBI-WAN KENOBI", "JAWA", "JAR JAR BINKS",
 "HAN SOLO", "ANAKIN SKYWALKER", "LUKE SKYWALKER", "DARTH VADER", "DARTH MAUL", "THE FORCE",
 "LEIA"];
@@ -27,14 +27,18 @@ console.log(startBtn);
 randomWord();
 
 /* ===== Function that creates place holders for the current word to be guessed. For each letter in the word it 
-         creates an empty li and place them in the ul in HTML that is marked with the class currentWord.
+         creates an empty li and place them in the ul in HTML that is marked with the class currentWord. If the 
+         "word" includes a space it takes away the styling for it.
          Then removes eventlistener to prevent multiple word at the same time */
 function createPH() {
     wordArray.forEach(item => {
         const li = document.createElement("li");
+        if(item === " ") {
+            li.style.borderBottom = "none";
+        }
         currentWord.appendChild(li);
         startBtn.removeEventListener("click", createPH);
-    })
+    })    
 }
 
 // ===== Adds eventlistener to letterBtn. When clicked on it calls the function compmare =====
@@ -49,11 +53,21 @@ function compare(e) {
                 if(wordArray[i] === e.target.textContent) {
                     currentWord.children[i].innerHTML = e.target.textContent;
                     rightGuesses++;
-                     /* ===== When the rightGuesses is equal to the length of the word you win and get a message. And 
+                     
+                    /* ===== If the word includes a space than it compares right guesses to the word array -1
+                             so you can win the game without filling every place holder =====*/
+                    if(wordArray.includes(" ")) {
+                        if(rightGuesses === wordArray.length -1) {
+                            message.innerHTML = "The force is strong with you!"
+                            startOverBtn();
+                        } 
+                    /* ===== When the rightGuesses is equal to the length of the word you win and get a message. And 
                               the startOverBtn function is called =====*/
-                    if(rightGuesses === wordArray.length) {
-                        message.innerHTML = "The force is strong with you!"
-                        startOverBtn();
+                    } else if(!wordArray.includes(" ")) {
+                        if(rightGuesses === wordArray.length) {
+                            message.innerHTML = "The force is strong with you!"
+                            startOverBtn();
+                        }
                     }
                 }
             }
