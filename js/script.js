@@ -1,6 +1,6 @@
 // ===== Global variabel with an array including all the words for the game =====
 const words = ["STORMTROOPER", "JEDI", "YODA", "DROID", "LIGHTSABER", "SANDPEOPLE", 
-"DEATH STAR", "PADME", "CHEWBACCA", "WOOKIEE", "OBI-WAN KENOBI", "JAWA", "JAR JAR BINKS",
+"DEATH STAR", "PADME", "CHEWBACCA", "WOOKIEE", "JAWA", "JAR JAR BINKS",
 "HAN SOLO", "ANAKIN SKYWALKER", "LUKE SKYWALKER", "DARTH VADER", "DARTH MAUL", "THE FORCE",
 "LEIA"];
 let wordArray;
