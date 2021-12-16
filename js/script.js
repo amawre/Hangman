@@ -12,7 +12,6 @@ const letterBtn = document.querySelector(".letterContainer");
 let hangmanImg = document.querySelector(".hangman");
 const message = document.querySelector(".message");
 
-// ===== Global variables that counts right and wrong guesses =====
 let rightGuesses = 0;
 let wrongGuesses = 0;
 
@@ -45,8 +44,8 @@ function placeholders() {
 // ===== Adds eventlistener to letterBtn. When clicked on it calls the function compare =====
 letterBtn.addEventListener("click", compare);
 
-/* ===== Function wich first checks if clicked element is a button. Then it listens to the click if you click a button
-         in wordArray*/
+/* ===== Function wich checks if clicked element is a button and compares it's content in wordArray. 
+         Calls different functions depending on if it's included or not ===== */
 function compare(e) {
     if (e.target.nodeName == ("BUTTON")) {
         if(wordArray.includes(e.target.textContent)) {
@@ -54,49 +53,48 @@ function compare(e) {
                 if(wordArray[i] === e.target.textContent) {
                     currentWord.children[i].innerHTML = e.target.textContent;
                     rightGuesses++;
-                     
-                    /* ===== If the word includes a space than it compares right guesses to the word array -1
-                             so you can win the game without filling every place holder =====*/
-                    if(wordArray.includes(" ")) {
-                        if(rightGuesses === wordArray.length -1) {
-                            message.innerHTML = "The force is strong with you!";
-                            letterBtn.style.visibility = "hidden"; 
-                            startOverBtn();
-                        } 
-                    /* ===== When the rightGuesses is equal to the length of the word you win and get a message. And 
-                              the startOverBtn function is called =====*/
-                    } else if(!wordArray.includes(" ")) {
-                        if(rightGuesses === wordArray.length) {
-                            message.innerHTML = "The force is strong with you!";
-                            letterBtn.style.visibility = "hidden"; 
-                            startOverBtn();
-                        }
-                    }
+                    win();
                 }
             }
-            /* ===== Every time wrongGuesses increases the png changes with it. For exempel when wrongGuesses has
-                     increased by 2 the img hm2 will show. Differnt messages when wrongGuesses reaches 5 or 6 nad then
-                     starOvertBtn is called ===== */
-        } else { 
+        } else {
             wrongGuesses++;
-            hangmanImg.src = `images/hm${wrongGuesses}.png`;
-
-            if(wrongGuesses === 5) {
-                message.innerHTML = "One more wrong and you're done...";
-            }
-
-            if(wrongGuesses === 6) {                
-                message.innerHTML = "Jabba the Hutt will be so pleased with his new pet, YOU!";
-                letterBtn.style.visibility = "hidden";              
-                startOverBtn();                
-            }
-
-        }
-    }
-        // ===== Disables buttons after beeing clicked =====
-        e.target.disabled = true;
+            hangmanImg.src = `images/hm${wrongGuesses}.png`; 
+            loose();
+        }            
+    }  
+ // ===== Disables buttons after beeing clicked =====
+    e.target.disabled = true;
 }
 
+/* ===== Function that displays winning messages when rightGuesses is equal to the length of wordArray.
+         If the word includes a space it counts wordArray -1 ===== */
+function win() {
+    if(wordArray.includes(" ")) {
+        if(rightGuesses === wordArray.length -1) {
+            message.innerHTML = "The force is strong with you!";
+            letterBtn.style.visibility = "hidden"; 
+            startOverBtn();
+        } 
+    } else if(!wordArray.includes(" ")) {
+            if(rightGuesses === wordArray.length) {
+                message.innerHTML = "The force is strong with you!";
+                letterBtn.style.visibility = "hidden"; 
+                startOverBtn();
+            }
+    }
+}
+
+/* ===== Displays different messages when player has one guess left and if the player looses.
+         And the startOverBtn function is called ===== */
+function loose() {
+    if(wrongGuesses === 5) {
+        message.innerHTML = "One more wrong and you're done...";
+    } else if(wrongGuesses === 6) {                
+        message.innerHTML = "Jabba the Hutt will be so pleased with his new pet, YOU!";
+        letterBtn.style.visibility = "hidden";              
+        startOverBtn();                
+    }
+}
 
 // ===== Function that changes the text in the startBtn and adds an eventlistener and calls function starOverF =====
 function startOverBtn() {
