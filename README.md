@@ -4,3 +4,5 @@ This Hangman game is the result of a JavaScript assignment at Chas Academy. Only
 Styling was optional but responsiveness was a requirement.
 
 ![Example image from game](images/hm1.jpg)
+![Example image from game](images/hm2.jpg)
+![Example image from game](images/hm3.jpg)
